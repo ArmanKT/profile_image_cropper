@@ -1,7 +1,8 @@
 name: profile_image_cropper
 description: "A simple profile image cropper package for Flutter"
 version: 0.0.1
-homepage:
+homepage: https://github.com/ArmanKT/profile_image_cropper
+repository: https://github.com/ArmanKT/profile_image_cropper
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
