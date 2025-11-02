@@ -111,8 +111,10 @@ class ProfileImageCropper extends StatefulWidget {
   })  : assert(aspectRatio > 0, 'Aspect ratio must be positive'),
         assert(maxZoomScale > 0, 'Max zoom scale must be positive'),
         assert(minZoomScale > 0, 'Min zoom scale must be positive'),
-        assert(maxZoomScale > minZoomScale, 'Max zoom scale must be greater than min zoom scale'),
-        assert(gridLineThickness >= 0, 'Grid line thickness must be non-negative');
+        assert(maxZoomScale > minZoomScale,
+            'Max zoom scale must be greater than min zoom scale'),
+        assert(
+            gridLineThickness >= 0, 'Grid line thickness must be non-negative');
 
   @override
   State<ProfileImageCropper> createState() => _ProfileImageCropperState();
@@ -205,7 +207,8 @@ class ProfileImageCropper extends StatefulWidget {
   }
 }
 
-class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTickerProviderStateMixin {
+class _ProfileImageCropperState extends State<ProfileImageCropper>
+    with SingleTickerProviderStateMixin {
   late final TransformationController _transformationController;
   late final AnimationController _animationController;
   Animation<Matrix4>? _scaleAnimation;
@@ -273,7 +276,8 @@ class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTi
     super.didUpdateWidget(oldWidget);
 
     _hasImageUpdated = oldWidget.image.image != widget.image.image;
-    _shouldUpdateScale = oldWidget.rotationTurns != widget.rotationTurns || oldWidget.aspectRatio != widget.aspectRatio;
+    _shouldUpdateScale = oldWidget.rotationTurns != widget.rotationTurns ||
+        oldWidget.aspectRatio != widget.aspectRatio;
 
     if (_hasImageUpdated) {
       _isImageLoaded = false;
@@ -362,7 +366,8 @@ class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTi
     final overlayWidgets = <Widget>[];
 
     // Add shape overlay (circle or rectangle)
-    if (widget.overlayType == OverlayType.circle || widget.overlayType == OverlayType.rectangle) {
+    if (widget.overlayType == OverlayType.circle ||
+        widget.overlayType == OverlayType.rectangle) {
       overlayWidgets.add(
         Positioned.fill(
           child: ClipPath(
@@ -379,11 +384,13 @@ class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTi
     }
 
     // Add grid lines
-    if (widget.overlayType == OverlayType.grid || widget.overlayType == OverlayType.gridHorizontal) {
+    if (widget.overlayType == OverlayType.grid ||
+        widget.overlayType == OverlayType.gridHorizontal) {
       overlayWidgets.add(_buildHorizontalGridLines());
     }
 
-    if (widget.overlayType == OverlayType.grid || widget.overlayType == OverlayType.gridVertical) {
+    if (widget.overlayType == OverlayType.grid ||
+        widget.overlayType == OverlayType.gridVertical) {
       overlayWidgets.add(_buildVerticalGridLines());
     }
 
@@ -462,7 +469,11 @@ class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTi
         final targetMatrix = Matrix4.identity();
 
         targetMatrix.scaleByDouble(coverRatio, coverRatio, coverRatio, 1.0);
-        targetMatrix.translateByDouble(_getTranslationX(parentSize, childSize, coverRatio), _getTranslationY(parentSize, childSize, coverRatio), 1.0, 1.0);
+        targetMatrix.translateByDouble(
+            _getTranslationX(parentSize, childSize, coverRatio),
+            _getTranslationY(parentSize, childSize, coverRatio),
+            1.0,
+            1.0);
 
         // Animate if duration is non-zero
         if (widget.scalingAnimationDuration > Duration.zero) {
@@ -509,7 +520,9 @@ class _ProfileImageCropperState extends State<ProfileImageCropper> with SingleTi
   void dispose() {
     try {
       // remove image listener if it was added
-      widget.image.image.resolve(_imageConfiguration).removeListener(_imageStreamListener);
+      widget.image.image
+          .resolve(_imageConfiguration)
+          .removeListener(_imageStreamListener);
     } catch (_) {
       // ignore if not attached
     }

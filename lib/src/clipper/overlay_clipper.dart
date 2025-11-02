@@ -120,7 +120,8 @@ class OverlayClipper extends CustomClipper<Path> {
     this.cornerRadius,
     this.padding = EdgeInsets.zero,
   })  : assert(aspectRatio > 0, 'Aspect ratio must be positive'),
-        assert(cornerRadius == null || cornerRadius >= 0, 'Corner radius must be non-negative');
+        assert(cornerRadius == null || cornerRadius >= 0,
+            'Corner radius must be non-negative');
 
   @override
   Path getClip(Size size) {
@@ -270,6 +271,9 @@ class OverlayClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant OverlayClipper oldClipper) {
     // Reclip when any property that affects the clip changes
-    return aspectRatio != oldClipper.aspectRatio || overlayType != oldClipper.overlayType || cornerRadius != oldClipper.cornerRadius || padding != oldClipper.padding;
+    return aspectRatio != oldClipper.aspectRatio ||
+        overlayType != oldClipper.overlayType ||
+        cornerRadius != oldClipper.cornerRadius ||
+        padding != oldClipper.padding;
   }
 }
